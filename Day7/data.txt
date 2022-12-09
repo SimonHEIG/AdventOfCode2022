@@ -1025,3 +1025,4 @@ $ cd ..
 $ cd twjcmp
 $ ls
 86053 pct.bbd
+$ cd ..
