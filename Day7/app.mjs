@@ -19,7 +19,7 @@ readFile(filename, 'utf-8', function (err, data) {
     let currentPath = []
     let listing = false
     let part1 = 0
-    // console.log(logs);
+    let potentialDelete = []
 
     for (const log of logs) {
         // console.log(log.slice(0, 4));
@@ -28,16 +28,16 @@ readFile(filename, 'utf-8', function (err, data) {
             const direction = log.split(' ')[2]
 
             if (direction == '..') {
-                const content = log.split(' ')
-
                 // Ajout du total du dossier à la somme
                 let cursor = currentPath.toString()
                 let currentDirectory = cursor.split(",").reduce(function (obj, prop) {
                     return obj && obj[prop];
                 }, fileSystem);
                 const total = currentDirectory.total
-                if(total <= 100000){
+                if (total <= 100000) {
                     part1 += total
+                } else if (total >= 3598596) {
+                    potentialDelete.push(total)
                 }
 
                 // Remonter d'un niveau
@@ -80,16 +80,16 @@ readFile(filename, 'utf-8', function (err, data) {
     // console.log(fileSystem);
     // console.log(JSON.stringify(fileSystem, null, 4));
     // console.log(part1);
-    console.log(fileSystem['/'].total);
 
     let totalDiskSpace = 70000000               // 70 000 000
     let diskSpaceUsed = fileSystem['/'].total   // 43 598 596
     let diskSpaceNeeded = 30000000              // 30 000 000
-
     let spaceToClear = diskSpaceUsed + diskSpaceNeeded - totalDiskSpace // 3 598 596
 
-    console.log(spaceToClear);
+    // console.log(potentialDelete);
+    potentialDelete.sort((a, b) => a - b)
 
-
+    console.log(potentialDelete[0]);
+    // console.log(spaceToClear);
 
 });
