@@ -8,7 +8,8 @@ readFile(filename, 'utf-8', function (err, data) {
     }
 
     const logs = data.split("\n")
-    // console.log(logs);
+    logs.push('$ cd ..')
+    console.log(logs);
 
     let fileSystem = {
         '/': {
